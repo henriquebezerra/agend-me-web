@@ -38,15 +38,15 @@ export default function RegisterPage() {
   };
 
   return (
-    <Card className="w-full shadow-xl">
-      <CardBody className="flex flex-col gap-6 p-8">
+    <Card className="w-full max-w-md mx-auto shadow-xl">
+      <CardBody className="flex flex-col gap-6 p-6 sm:p-8">
         {/* Brand */}
-          <div className="flex flex-col items-center gap-2 text-center">
+          <div className="flex flex-col items-center gap-2 text-center px-2 sm:px-0">
           <Calendar className="h-12 w-12 text-[#268596]" strokeWidth={1.5} />
-          <h1 className="text-2xl font-bold text-white">
+          <h1 className="text-xl sm:text-2xl font-bold text-white">
             Criar conta
           </h1>
-          <p className="text-sm text-blue-50">
+          <p className="text-sm sm:text-base text-blue-50">
             Comece a usar o {APP_NAME}
           </p>
           
@@ -65,88 +65,91 @@ export default function RegisterPage() {
         )}
 
         {/* Form */}
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-          {/* Establishment Information (single step) */}
-          <Input
-            label="Nome do estabelecimento"
-            type="text"
-            placeholder="Salão de Beleza XYZ"
-            id="register-establishment-name"
-            {...register('establishmentName')}
-            error={errors.establishmentName?.message}
-            disabled={isLoading}
-          />
-
-          <Input
-            label="Rua"
-            type="text"
-            placeholder="Avenida Principal"
-            id="register-street"
-            {...register('street')}
-            error={errors.street?.message}
-            disabled={isLoading}
-          />
-
-          <div className="grid grid-cols-2 gap-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 px-4 sm:px-6">
+          {/* Fields scrollable area for small screens */}
+          <div className="flex flex-col gap-4 overflow-y-auto max-h-[60vh] sm:max-h-none pb-4 sm:pb-0">
             <Input
-              label="Número"
+              label="Nome do estabelecimento"
               type="text"
-              placeholder="123"
-              id="register-number"
-              {...register('number')}
-              error={errors.number?.message}
+              placeholder="Salão de Beleza XYZ"
+              id="register-establishment-name"
+              {...register('establishmentName')}
+              error={errors.establishmentName?.message}
               disabled={isLoading}
             />
 
             <Input
-              label="Bairro"
+              label="Rua"
               type="text"
-              placeholder="Centro"
-              id="register-neighborhood"
-              {...register('neighborhood')}
-              error={errors.neighborhood?.message}
+              placeholder="Avenida Principal"
+              id="register-street"
+              {...register('street')}
+              error={errors.street?.message}
+              disabled={isLoading}
+            />
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Input
+                label="Número"
+                type="text"
+                placeholder="123"
+                id="register-number"
+                {...register('number')}
+                error={errors.number?.message}
+                disabled={isLoading}
+              />
+
+              <Input
+                label="Bairro"
+                type="text"
+                placeholder="Centro"
+                id="register-neighborhood"
+                {...register('neighborhood')}
+                error={errors.neighborhood?.message}
+                disabled={isLoading}
+              />
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Input
+                label="Cidade"
+                type="text"
+                placeholder="São Paulo"
+                id="register-city"
+                {...register('city')}
+                error={errors.city?.message}
+                disabled={isLoading}
+              />
+
+              <Input
+                label="Estado"
+                type="text"
+                placeholder="SP"
+                id="register-state"
+                maxLength={2}
+                {...register('state')}
+                error={errors.state?.message}
+                disabled={isLoading}
+              />
+            </div>
+
+            <Input
+              label="Complemento (opcional)"
+              type="text"
+              placeholder="Apto 101, Bloco A"
+              id="register-complement"
+              {...register('complement')}
+              error={errors.complement?.message}
               disabled={isLoading}
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <Input
-              label="Cidade"
-              type="text"
-              placeholder="São Paulo"
-              id="register-city"
-              {...register('city')}
-              error={errors.city?.message}
-              disabled={isLoading}
-            />
-
-            <Input
-              label="Estado"
-              type="text"
-              placeholder="SP"
-              id="register-state"
-              maxLength={2}
-              {...register('state')}
-              error={errors.state?.message}
-              disabled={isLoading}
-            />
-          </div>
-
-          <Input
-            label="Complemento (opcional)"
-            type="text"
-            placeholder="Apto 101, Bloco A"
-            id="register-complement"
-            {...register('complement')}
-            error={errors.complement?.message}
-            disabled={isLoading}
-          />
-
-          <div className="flex gap-3">
+          {/* Actions — keep visible */}
+          <div className="sticky bottom-0 bg-transparent pt-2">
             <Button
               type="submit"
               size="lg"
-              className="w-full bg-[#268596] hover:bg-[#1f6377] text-white border-0"
+              className="w-full h-14 sm:h-16 rounded-2xl bg-[#268596] hover:bg-[#1f6377] text-white border-0"
               disabled={isLoading}
             >
               {isLoading ? 'Salvando...' : 'Salvar estabelecimento'}

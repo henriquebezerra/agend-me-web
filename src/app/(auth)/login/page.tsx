@@ -13,21 +13,21 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <Card className="w-full shadow-xl">
-      <CardBody className="flex flex-col gap-6 p-8">
+    <Card className="w-full max-w-md mx-auto shadow-xl">
+      <CardBody className="flex flex-col gap-6 p-6 sm:p-8">
         {/* Brand */}
-        <div className="flex flex-col items-center gap-2 text-center">
+        <div className="flex flex-col items-center gap-2 text-center px-2 sm:px-0">
           <Calendar className="h-12 w-12 text-[#268596]" strokeWidth={1.5} />
-          <h1 className="text-2xl font-bold text-white">
+          <h1 className="text-xl sm:text-2xl font-bold text-white">
             Bem-vindo de volta!
           </h1>
-          <p className="text-sm text-blue-50">
+          <p className="text-sm sm:text-base text-blue-50">
             Entre na sua conta {APP_NAME}
           </p>
         </div>
 
         {/* Form */}
-        <form className="flex flex-col gap-4">
+        <form className="flex flex-col gap-4 px-2 sm:px-0">
           <Input
             label="E-mail"
             type="email"
