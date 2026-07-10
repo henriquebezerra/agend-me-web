@@ -40,7 +40,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               'flex h-10 w-full rounded-lg border bg-white px-3 py-2 text-sm',
               'text-slate-900 placeholder-slate-400',
               'transition-colors duration-150',
-              'focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent',
+              'focus:outline-none focus:ring-2 focus:ring-[#268596] focus:border-transparent',
               'disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-slate-50',
               'dark:bg-slate-800 dark:text-slate-100 dark:placeholder-slate-500',
               error

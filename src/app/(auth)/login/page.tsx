@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { Calendar } from 'lucide-react';
 import { Card, CardBody } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -16,9 +17,7 @@ export default function LoginPage() {
       <CardBody className="flex flex-col gap-6 p-8">
         {/* Brand */}
         <div className="flex flex-col items-center gap-2 text-center">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#268596] text-white text-xl font-bold shadow-lg shadow-blue-700/40 dark:shadow-blue-900/40">
-            A
-          </div>
+          <Calendar className="h-12 w-12 text-[#268596]" strokeWidth={1.5} />
           <h1 className="text-2xl font-bold text-white">
             Bem-vindo de volta!
           </h1>
