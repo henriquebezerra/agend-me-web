@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { Calendar } from 'lucide-react';
@@ -9,15 +8,15 @@ import { Card, CardBody } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { APP_NAME } from '@/constants';
-import authService from '@/services/auth.service';
+import type { EstablishmentForm } from '@/types/establishment';
 
 export default function RegisterPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm<EstablishmentForm>();
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: EstablishmentForm) => {
     setIsLoading(true);
     setApiError(null);
     setSuccessMessage(null);
