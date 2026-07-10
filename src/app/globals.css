@@ -5,10 +5,14 @@
    ============================================================ */
 
 :root {
-  /* Brand Colors */
-  --color-primary: hsl(262, 80%, 56%);
-  --color-primary-hover: hsl(262, 80%, 48%);
-  --color-primary-light: hsl(262, 80%, 96%);
+  /* Brand Colors - AgendMe App */
+  --color-primary: #268596;
+  --color-primary-hover: #1f6377;
+  --color-primary-light: #f0f8fa;
+  
+  /* Secondary Brand Colors */
+  --color-secondary: #63C2D1;
+  --color-secondary-light: #e6f5f8;
 
   /* Semantic Colors */
   --color-success: hsl(152, 69%, 44%);
