@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Design Tokens — AgendMe Design System
+   ============================================================ */
+
+:root {
+  /* Brand Colors */
+  --color-primary: hsl(262, 80%, 56%);
+  --color-primary-hover: hsl(262, 80%, 48%);
+  --color-primary-light: hsl(262, 80%, 96%);
+
+  /* Semantic Colors */
+  --color-success: hsl(152, 69%, 44%);
+  --color-warning: hsl(43, 96%, 56%);
+  --color-danger: hsl(0, 72%, 51%);
+  --color-info: hsl(217, 91%, 60%);
+
+  /* Background */
+  --background: hsl(210, 40%, 98%);
+  --foreground: hsl(222, 47%, 11%);
+  --surface: hsl(0, 0%, 100%);
+  --surface-raised: hsl(210, 40%, 96%);
+
+  /* Border */
+  --border: hsl(214, 32%, 91%);
+  --border-strong: hsl(214, 32%, 80%);
+
+  /* Typography */
+  --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-geist-mono), 'Courier New', monospace;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: hsl(222, 47%, 7%);
+    --foreground: hsl(210, 40%, 98%);
+    --surface: hsl(222, 47%, 11%);
+    --surface-raised: hsl(222, 47%, 15%);
+    --border: hsl(217, 33%, 18%);
+    --border-strong: hsl(217, 33%, 25%);
+  }
+}
+
+/* ============================================================
+   Base Styles
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================================
+   Scrollbar Styling
+   ============================================================ */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(214, 32%, 75%);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(214, 32%, 60%);
+}
+
+/* ============================================================
+   Focus Styles (Accessibility)
+   ============================================================ */
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   Selection
+   ============================================================ */
+
+::selection {
+  background: hsl(262, 80%, 92%);
+  color: hsl(262, 80%, 30%);
+}
