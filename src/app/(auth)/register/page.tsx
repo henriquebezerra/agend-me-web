@@ -41,7 +41,7 @@ export default function RegisterPage() {
     <Card className="w-full max-w-md mx-auto shadow-xl">
       <CardBody className="flex flex-col gap-6 p-6 sm:p-8">
         {/* Brand */}
-          <div className="flex flex-col items-center gap-2 text-center px-2 sm:px-0">
+        <div className="hidden sm:flex flex-col items-center gap-2 text-center px-2 sm:px-0">
           <Calendar className="h-12 w-12 text-[#268596]" strokeWidth={1.5} />
           <h1 className="text-xl sm:text-2xl font-bold text-white">
             Criar conta
@@ -49,7 +49,6 @@ export default function RegisterPage() {
           <p className="text-sm sm:text-base text-blue-50">
             Comece a usar o {APP_NAME}
           </p>
-          
         </div>
 
         {/* Messages */}
@@ -67,7 +66,7 @@ export default function RegisterPage() {
         {/* Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 px-4 sm:px-6">
           {/* Fields scrollable area for small screens */}
-          <div className="flex flex-col gap-4 overflow-y-auto max-h-[60vh] sm:max-h-none pb-4 sm:pb-0">
+          <div className="flex flex-col gap-4 overflow-y-auto max-h-[60vh] sm:max-h-none pb-4 sm:pb-0 px-2 sm:px-0">
             <Input
               label="Nome do estabelecimento"
               type="text"
