@@ -21,9 +21,23 @@ const api: AxiosInstance = axios.create({
 api.interceptors.request.use(
   (config) => {
     if (typeof window !== 'undefined') {
-      const token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
+      let token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
+
       if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+        try {
+          const parsed = JSON.parse(token);
+          if (parsed?.token) {
+            token = parsed.token;
+          } else if (parsed?.accessToken) {
+            token = parsed.accessToken;
+          }
+        } catch {
+          // token remains raw string when parse fails
+        }
+
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
       }
     }
     return config;

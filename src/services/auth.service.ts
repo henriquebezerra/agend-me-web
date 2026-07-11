@@ -1,5 +1,5 @@
 import api from '@/lib/api/axios';
-import { type ApiResponse } from '@/types';
+import { type ApiResponse, type User } from '@/types';
 
 // ============================================================
 // Auth Service — handles all authentication API calls
@@ -21,15 +21,8 @@ export interface AuthTokens {
   refreshToken: string;
 }
 
-export interface AuthUser {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-}
-
 export interface LoginResponse {
-  user: AuthUser;
+  user: User;
   tokens: AuthTokens;
 }
 
@@ -39,8 +32,8 @@ const authService = {
     return response.data;
   },
 
-  register: async (payload: RegisterPayload): Promise<ApiResponse<AuthUser>> => {
-    const response = await api.post<ApiResponse<AuthUser>>('/auth/register', payload);
+  register: async (payload: RegisterPayload): Promise<ApiResponse<User>> => {
+    const response = await api.post<ApiResponse<User>>('/auth/register', payload);
     return response.data;
   },
 
@@ -53,8 +46,8 @@ const authService = {
     return response.data;
   },
 
-  me: async (): Promise<ApiResponse<AuthUser>> => {
-    const response = await api.get<ApiResponse<AuthUser>>('/auth/me');
+  me: async (): Promise<ApiResponse<User>> => {
+    const response = await api.get<ApiResponse<User>>('/auth/me');
     return response.data;
   },
 };

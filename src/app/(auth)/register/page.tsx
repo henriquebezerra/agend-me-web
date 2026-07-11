@@ -1,36 +1,48 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Calendar } from 'lucide-react';
 import { Card, CardBody } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
+import authService from '@/services/auth.service';
 import { APP_NAME } from '@/constants';
-import type { EstablishmentForm } from '@/types/establishment';
+import { registerSchema, type RegisterFormData } from '@/lib/validations';
 
 export default function RegisterPage() {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const { register, handleSubmit, formState: { errors } } = useForm<EstablishmentForm>();
+  const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormData>({
+    resolver: zodResolver(registerSchema),
+  });
 
-  const onSubmit = async (data: EstablishmentForm) => {
+  const onSubmit = async (data: RegisterFormData) => {
     setIsLoading(true);
     setApiError(null);
     setSuccessMessage(null);
 
     try {
-      // TODO: enviar os dados do estabelecimento para a API
-      // Por enquanto apenas simula sucesso localmente
-      console.log('Establishment data submitted:', data);
-      setSuccessMessage('Estabelecimento salvo com sucesso!');
+      const response = await authService.register(data);
+
+      if (!response.success) {
+        throw new Error(response.message || 'Falha ao criar conta.');
+      }
+
+      setSuccessMessage('Conta criada com sucesso! Redirecionando para login...');
+      setTimeout(() => {
+        router.push('/login');
+      }, 1600);
     } catch (error) {
       setApiError(
         error instanceof Error
           ? error.message
-          : 'Erro ao criar conta. Tente novamente.'
+          : 'Erro ao criar conta. Tente novamente.',
       );
     } finally {
       setIsLoading(false);
@@ -41,7 +53,7 @@ export default function RegisterPage() {
     <Card className="w-full max-w-md mx-auto shadow-xl">
       <CardBody className="flex flex-col gap-6 p-6 sm:p-8">
         {/* Brand */}
-        <div className="hidden sm:flex flex-col items-center gap-2 text-center px-2 sm:px-0">
+        <div className="flex flex-col items-center gap-2 text-center px-2 sm:px-0">
           <Calendar className="h-12 w-12 text-[#268596]" strokeWidth={1.5} />
           <h1 className="text-xl sm:text-2xl font-bold text-white">
             Criar conta
@@ -65,85 +77,41 @@ export default function RegisterPage() {
 
         {/* Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 px-4 sm:px-6">
-          {/* Fields scrollable area for small screens */}
-          <div className="flex flex-col gap-4 overflow-y-auto max-h-[60vh] sm:max-h-none pb-4 sm:pb-0 px-2 sm:px-0">
+          <div className="flex flex-col gap-4 px-2 sm:px-0">
             <Input
-              label="Nome do estabelecimento"
+              label="Nome completo"
               type="text"
-              placeholder="Salão de Beleza XYZ"
-              id="register-establishment-name"
-              {...register('establishmentName')}
-              error={errors.establishmentName?.message}
+              placeholder="Digite seu nome"
+              id="register-name"
+              autoComplete="name"
+              {...register('name')}
+              error={errors.name?.message}
               disabled={isLoading}
             />
 
             <Input
-              label="Rua"
-              type="text"
-              placeholder="Avenida Principal"
-              id="register-street"
-              {...register('street')}
-              error={errors.street?.message}
+              label="E-mail"
+              type="email"
+              placeholder="seu@email.com"
+              id="register-email"
+              autoComplete="email"
+              {...register('email')}
+              error={errors.email?.message}
               disabled={isLoading}
             />
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Input
-                label="Número"
-                type="text"
-                placeholder="123"
-                id="register-number"
-                {...register('number')}
-                error={errors.number?.message}
-                disabled={isLoading}
-              />
-
-              <Input
-                label="Bairro"
-                type="text"
-                placeholder="Centro"
-                id="register-neighborhood"
-                {...register('neighborhood')}
-                error={errors.neighborhood?.message}
-                disabled={isLoading}
-              />
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Input
-                label="Cidade"
-                type="text"
-                placeholder="São Paulo"
-                id="register-city"
-                {...register('city')}
-                error={errors.city?.message}
-                disabled={isLoading}
-              />
-
-              <Input
-                label="Estado"
-                type="text"
-                placeholder="SP"
-                id="register-state"
-                maxLength={2}
-                {...register('state')}
-                error={errors.state?.message}
-                disabled={isLoading}
-              />
-            </div>
-
             <Input
-              label="Complemento (opcional)"
-              type="text"
-              placeholder="Apto 101, Bloco A"
-              id="register-complement"
-              {...register('complement')}
-              error={errors.complement?.message}
+              label="Senha"
+              type="password"
+              placeholder="••••••••"
+              id="register-password"
+              autoComplete="new-password"
+              {...register('password')}
+              error={errors.password?.message}
               disabled={isLoading}
             />
           </div>
 
-          {/* Actions — keep visible */}
           <div className="sticky bottom-0 bg-transparent pt-2">
             <Button
               type="submit"
@@ -151,7 +119,7 @@ export default function RegisterPage() {
               className="w-full h-14 sm:h-16 rounded-2xl bg-[#268596] hover:bg-[#1f6377] text-white border-0"
               disabled={isLoading}
             >
-              {isLoading ? 'Salvando...' : 'Salvar estabelecimento'}
+              {isLoading ? 'Criando conta...' : 'Criar conta'}
             </Button>
           </div>
         </form>

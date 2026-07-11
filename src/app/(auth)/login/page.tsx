@@ -1,17 +1,53 @@
-import type { Metadata } from 'next';
+'use client';
+
+import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
 import { Calendar } from 'lucide-react';
 import { Card, CardBody } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
+import authService from '@/services/auth.service';
+import { useAuthStore } from '@/store/auth.store';
 import { APP_NAME } from '@/constants';
 
-export const metadata: Metadata = {
-  title: 'Entrar',
-  description: `Acesse sua conta ${APP_NAME}`,
-};
+interface LoginFormValues {
+  email: string;
+  password: string;
+}
 
 export default function LoginPage() {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormValues>();
+
+  const onSubmit = async (data: LoginFormValues) => {
+    setIsLoading(true);
+    setApiError(null);
+
+    try {
+      const response = await authService.login(data);
+
+      if (!response.success) {
+        throw new Error(response.message || 'Falha na autenticação.');
+      }
+
+      const { user, tokens } = response.data;
+      useAuthStore.getState().login(user, tokens.accessToken);
+      router.push('/dashboard');
+    } catch (error) {
+      setApiError(
+        error instanceof Error
+          ? error.message
+          : 'Erro ao entrar. Verifique suas credenciais e tente novamente.',
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <Card className="w-full max-w-md mx-auto shadow-xl">
       <CardBody className="flex flex-col gap-6 p-6 sm:p-8">
@@ -19,7 +55,7 @@ export default function LoginPage() {
         <div className="flex flex-col items-center gap-2 text-center px-2 sm:px-0">
           <Calendar className="h-12 w-12 text-[#268596]" strokeWidth={1.5} />
           <h1 className="text-xl sm:text-2xl font-bold text-white">
-            Bem-vindo de volta!
+            Bem-vindo!
           </h1>
           <p className="text-sm sm:text-base text-blue-50">
             Entre na sua conta {APP_NAME}
@@ -27,13 +63,21 @@ export default function LoginPage() {
         </div>
 
         {/* Form */}
-        <form className="flex flex-col gap-4 px-2 sm:px-0">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 px-2 sm:px-0">
+          {apiError && (
+            <div className="rounded-lg bg-red-50 p-3 text-sm text-red-700 dark:bg-red-900/20 dark:text-red-400">
+              {apiError}
+            </div>
+          )}
+
           <Input
             label="E-mail"
             type="email"
             placeholder="seu@email.com"
             id="login-email"
             autoComplete="email"
+            {...register('email', { required: 'E-mail é obrigatório' })}
+            error={errors.email?.message}
           />
           <Input
             label="Senha"
@@ -41,6 +85,8 @@ export default function LoginPage() {
             placeholder="••••••••"
             id="login-password"
             autoComplete="current-password"
+            {...register('password', { required: 'Senha é obrigatória' })}
+            error={errors.password?.message}
           />
 
           <div className="flex items-center justify-end">
