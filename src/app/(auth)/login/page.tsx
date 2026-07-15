@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Calendar } from 'lucide-react';
 import { Card, CardBody } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
@@ -11,17 +12,17 @@ import { Input } from '@/components/ui/Input';
 import authService from '@/services/auth.service';
 import { useAuthStore } from '@/store/auth.store';
 import { APP_NAME } from '@/constants';
+import { loginSchema, type LoginFormData } from '@/lib/validations';
 
-interface LoginFormValues {
-  email: string;
-  password: string;
-}
+type LoginFormValues = LoginFormData;
 
 export default function LoginPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
-  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormValues>();
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
+  });
 
   const onSubmit = async (data: LoginFormValues) => {
     setIsLoading(true);
@@ -76,8 +77,9 @@ export default function LoginPage() {
             placeholder="seu@email.com"
             id="login-email"
             autoComplete="email"
-            {...register('email', { required: 'E-mail é obrigatório' })}
+            {...register('email')}
             error={errors.email?.message}
+            disabled={isLoading}
           />
           <Input
             label="Senha"
@@ -85,8 +87,9 @@ export default function LoginPage() {
             placeholder="••••••••"
             id="login-password"
             autoComplete="current-password"
-            {...register('password', { required: 'Senha é obrigatória' })}
+            {...register('password')}
             error={errors.password?.message}
+            disabled={isLoading}
           />
 
           <div className="flex items-center justify-end">
@@ -98,8 +101,13 @@ export default function LoginPage() {
             </Link>
           </div>
 
-          <Button type="submit" size="lg" className="w-full mt-2 bg-[#268596] hover:bg-[#1f6377] text-white border-0">
-            Entrar
+          <Button
+            type="submit"
+            size="lg"
+            className="w-full mt-2 bg-[#268596] hover:bg-[#1f6377] text-white border-0"
+            disabled={isLoading}
+          >
+            {isLoading ? 'Entrando...' : 'Entrar'}
           </Button>
         </form>
 

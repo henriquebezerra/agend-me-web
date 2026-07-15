@@ -7,7 +7,7 @@ export const APP_DESCRIPTION = 'Plataforma de agendamento inteligente';
 export const APP_VERSION = '0.1.0';
 
 // API
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001/api';
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8082';
 export const API_TIMEOUT = 10000; // 10s
 
 // Pagination

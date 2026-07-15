@@ -14,32 +14,57 @@ const api: AxiosInstance = axios.create({
   },
 });
 
+const getStoredToken = (): string | null => {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  const rawToken = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
+
+  if (!rawToken) {
+    return null;
+  }
+
+  try {
+    const parsed = JSON.parse(rawToken);
+    const persistedState = parsed?.state ?? parsed;
+
+    if (persistedState && typeof persistedState === 'object') {
+      if (typeof persistedState.token === 'string' && persistedState.token) {
+        return persistedState.token;
+      }
+
+      if (typeof persistedState.accessToken === 'string' && persistedState.accessToken) {
+        return persistedState.accessToken;
+      }
+    }
+
+    if (typeof parsed?.token === 'string' && parsed.token) {
+      return parsed.token;
+    }
+
+    if (typeof parsed?.accessToken === 'string' && parsed.accessToken) {
+      return parsed.accessToken;
+    }
+  } catch {
+    return rawToken;
+  }
+
+  return rawToken;
+};
+
 // ============================================================
 // Request Interceptor — attach Bearer token
 // ============================================================
 
 api.interceptors.request.use(
   (config) => {
-    if (typeof window !== 'undefined') {
-      let token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
+    const token = getStoredToken();
 
-      if (token) {
-        try {
-          const parsed = JSON.parse(token);
-          if (parsed?.token) {
-            token = parsed.token;
-          } else if (parsed?.accessToken) {
-            token = parsed.accessToken;
-          }
-        } catch {
-          // token remains raw string when parse fails
-        }
-
-        if (token) {
-          config.headers.Authorization = `Bearer ${token}`;
-        }
-      }
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
+
     return config;
   },
   (error) => Promise.reject(error),
