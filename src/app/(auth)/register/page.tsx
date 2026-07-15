@@ -65,8 +65,9 @@ export default function RegisterPage() {
 
         {/* Messages */}
         {apiError && (
-          <div className="rounded-lg bg-red-50 p-3 text-sm text-red-700 dark:bg-red-900/20 dark:text-red-400">
-            {apiError}
+          <div className="rounded-xl border border-red-200 bg-red-50/90 p-3 text-sm text-red-700 shadow-sm dark:border-red-800/60 dark:bg-red-950/30 dark:text-red-300">
+            <div className="font-medium">Não foi possível criar a conta</div>
+            <div className="mt-1">{apiError}</div>
           </div>
         )}
         {successMessage && (
