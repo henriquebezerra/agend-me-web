@@ -30,13 +30,8 @@ export default function LoginPage() {
 
     try {
       const response = await authService.login(data);
-
-      if (!response.success) {
-        throw new Error(response.message || 'Falha na autenticação.');
-      }
-
-      const { user, tokens } = response.data;
-      useAuthStore.getState().login(user, tokens.accessToken);
+      const { user } = response.data;
+      useAuthStore.getState().login(user);
       router.push('/dashboard');
     } catch (error) {
       const message =

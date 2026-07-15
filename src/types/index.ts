@@ -8,6 +8,7 @@ export interface User {
   email: string;
   avatar?: string;
   role: UserRole;
+  token?: string;
   createdAt: Date;
   updatedAt: Date;
 }
