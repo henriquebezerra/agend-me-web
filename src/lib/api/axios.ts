@@ -1,6 +1,43 @@
 import axios, { AxiosError, type AxiosInstance, type AxiosRequestConfig } from 'axios';
 import { API_BASE_URL, API_TIMEOUT, STORAGE_KEYS } from '@/constants';
 
+type ApiErrorPayload = {
+  message?: string;
+  violations?: Array<{ message?: string; field?: string }>;
+  errors?: Array<{ message?: string }> | Record<string, string[]>;
+};
+
+const getErrorMessage = (error: AxiosError | unknown): string => {
+  const payload = (error as AxiosError<ApiErrorPayload>)?.response?.data;
+
+  if (payload && typeof payload === 'object') {
+    if (typeof payload.message === 'string' && payload.message.trim()) {
+      return payload.message;
+    }
+
+    if (Array.isArray(payload.violations) && payload.violations[0]?.message) {
+      return payload.violations[0].message;
+    }
+
+    if (Array.isArray(payload.errors) && payload.errors[0]?.message) {
+      return payload.errors[0].message;
+    }
+
+    if (payload.errors && typeof payload.errors === 'object') {
+      const firstError = Object.values(payload.errors)[0];
+      if (Array.isArray(firstError) && firstError[0]) {
+        return firstError[0];
+      }
+    }
+  }
+
+  if (axios.isAxiosError(error) && error.message) {
+    return error.message;
+  }
+
+  return 'Erro inesperado. Tente novamente.';
+};
+
 // ============================================================
 // Axios Instance
 // ============================================================
@@ -94,7 +131,13 @@ api.interceptors.response.use(
       }
     }
 
-    return Promise.reject(error);
+    const normalizedError = new Error(getErrorMessage(error));
+    Object.assign(normalizedError, {
+      statusCode: error.response?.status,
+      response: error.response,
+    });
+
+    return Promise.reject(normalizedError);
   },
 );
 

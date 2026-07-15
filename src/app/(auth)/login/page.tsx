@@ -39,11 +39,12 @@ export default function LoginPage() {
       useAuthStore.getState().login(user, tokens.accessToken);
       router.push('/dashboard');
     } catch (error) {
-      setApiError(
-        error instanceof Error
+      const message =
+        error instanceof Error && error.message
           ? error.message
-          : 'Erro ao entrar. Verifique suas credenciais e tente novamente.',
-      );
+          : 'Erro ao entrar. Verifique suas credenciais e tente novamente.';
+
+      setApiError(message);
     } finally {
       setIsLoading(false);
     }
@@ -67,7 +68,6 @@ export default function LoginPage() {
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 px-2 sm:px-0">
           {apiError && (
             <div className="rounded-xl border border-red-200 bg-red-50/90 p-3 text-sm text-red-700 shadow-sm dark:border-red-800/60 dark:bg-red-950/30 dark:text-red-300">
-              <div className="font-medium">Não foi possível entrar</div>
               <div className="mt-1">{apiError}</div>
             </div>
           )}
