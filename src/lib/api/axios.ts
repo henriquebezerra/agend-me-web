@@ -78,14 +78,19 @@ api.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
     const originalRequest = error.config as AxiosRequestConfig & { _retry?: boolean };
+    const requestUrl = originalRequest?.url ?? '';
+    const isAuthRequest = requestUrl.includes('/auth/login') || requestUrl.includes('/auth/refresh');
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (error.response?.status === 401 && !originalRequest._retry && !isAuthRequest) {
       originalRequest._retry = true;
 
       if (typeof window !== 'undefined') {
         localStorage.removeItem(STORAGE_KEYS.AUTH_TOKEN);
         localStorage.removeItem(STORAGE_KEYS.USER);
-        window.location.href = '/login';
+
+        if (window.location.pathname !== '/login') {
+          window.location.href = '/login';
+        }
       }
     }
 
