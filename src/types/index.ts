@@ -15,13 +15,6 @@ export interface User {
 
 export type UserRole = 'admin' | 'professional' | 'client';
 
-export interface ApiResponse<T> {
-  data: T;
-  message: string;
-  success: boolean;
-  statusCode: number;
-}
-
 export interface PaginatedResponse<T> {
   data: T[];
   pagination: {

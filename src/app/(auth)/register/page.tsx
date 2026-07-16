@@ -28,11 +28,7 @@ export default function RegisterPage() {
     setSuccessMessage(null);
 
     try {
-      const response = await authService.register(data);
-
-      if (!response.success) {
-        throw new Error(response.message || 'Falha ao criar conta.');
-      }
+      await authService.register(data);
 
       setSuccessMessage('Conta criada com sucesso! Redirecionando para login...');
       setTimeout(() => {

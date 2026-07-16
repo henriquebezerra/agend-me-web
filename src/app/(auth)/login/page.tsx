@@ -29,8 +29,7 @@ export default function LoginPage() {
     setApiError(null);
 
     try {
-      const response = await authService.login(data);
-      const { user } = response.data;
+      const user = await authService.login(data);
       useAuthStore.getState().login(user);
       router.push('/dashboard');
     } catch (error) {
