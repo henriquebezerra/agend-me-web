@@ -10,11 +10,6 @@ export interface LoginCredentials {
   password: string;
 }
 
-export interface RegisterPayload {
-  name: string;
-  email: string;
-  password: string;
-}
 
 export interface AuthTokens {
   accessToken: string;
@@ -27,11 +22,6 @@ const authService = {
       email: credentials.email,
       senha: credentials.password,
     });
-    return response.data;
-  },
-
-  register: async (payload: RegisterPayload): Promise<User> => {
-    const response = await api.post<User>('/auth/register', payload);
     return response.data;
   },
 

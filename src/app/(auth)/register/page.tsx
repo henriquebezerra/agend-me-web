@@ -5,11 +5,11 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Calendar } from 'lucide-react';
+import { Calendar, CheckCircle } from 'lucide-react';
 import { Card, CardBody } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import authService from '@/services/auth.service';
+import usuarioService from '@/services/usuario.service';
 import { APP_NAME } from '@/constants';
 import { registerSchema, type RegisterFormData } from '@/lib/validations';
 
@@ -17,7 +17,7 @@ export default function RegisterPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [isSuccess, setIsSuccess] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
   });
@@ -25,15 +25,10 @@ export default function RegisterPage() {
   const onSubmit = async (data: RegisterFormData) => {
     setIsLoading(true);
     setApiError(null);
-    setSuccessMessage(null);
 
     try {
-      await authService.register(data);
-
-      setSuccessMessage('Conta criada com sucesso! Redirecionando para login...');
-      setTimeout(() => {
-        router.push('/login');
-      }, 1600);
+      await usuarioService.create(data);
+      setIsSuccess(true);
     } catch (error) {
       setApiError(
         error instanceof Error
@@ -44,6 +39,31 @@ export default function RegisterPage() {
       setIsLoading(false);
     }
   };
+
+  if (isSuccess) {
+    return (
+      <Card className="w-full max-w-md mx-auto shadow-xl">
+        <CardBody className="flex flex-col items-center gap-6 p-6 sm:p-8 text-center">
+          <CheckCircle className="h-16 w-16 text-[#268596]" strokeWidth={1.5} />
+          <div className="flex flex-col gap-2">
+            <h1 className="text-xl sm:text-2xl font-bold text-white">
+              Conta criada com sucesso!
+            </h1>
+            <p className="text-sm sm:text-base text-blue-50">
+              Sua conta no {APP_NAME} está pronta. Faça login para começar.
+            </p>
+          </div>
+          <Button
+            size="lg"
+            className="w-full h-14 sm:h-16 rounded-2xl bg-[#268596] hover:bg-[#1f6377] text-white border-0"
+            onClick={() => router.push('/login')}
+          >
+            Ir para o login
+          </Button>
+        </CardBody>
+      </Card>
+    );
+  }
 
   return (
     <Card className="w-full max-w-md mx-auto shadow-xl">
@@ -59,16 +79,11 @@ export default function RegisterPage() {
           </p>
         </div>
 
-        {/* Messages */}
+        {/* Error */}
         {apiError && (
           <div className="rounded-xl border border-red-200 bg-red-50/90 p-3 text-sm text-red-700 shadow-sm dark:border-red-800/60 dark:bg-red-950/30 dark:text-red-300">
             <div className="font-medium">Não foi possível criar a conta</div>
             <div className="mt-1">{apiError}</div>
-          </div>
-        )}
-        {successMessage && (
-          <div className="rounded-lg bg-green-50 p-3 text-sm text-green-700 dark:bg-green-900/20 dark:text-green-400">
-            {successMessage}
           </div>
         )}
 
@@ -81,8 +96,8 @@ export default function RegisterPage() {
               placeholder="Digite seu nome"
               id="register-name"
               autoComplete="name"
-              {...register('name')}
-              error={errors.name?.message}
+              {...register('nome')}
+              error={errors.nome?.message}
               disabled={isLoading}
             />
 

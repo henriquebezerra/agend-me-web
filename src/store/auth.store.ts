@@ -5,6 +5,14 @@ import { persist } from 'zustand/middleware';
 import { type User } from '@/types';
 import { STORAGE_KEYS } from '@/constants';
 
+const setAuthCookie = (token: string) => {
+  document.cookie = `${STORAGE_KEYS.AUTH_TOKEN}=${token}; path=/; SameSite=Lax`;
+};
+
+const clearAuthCookie = () => {
+  document.cookie = `${STORAGE_KEYS.AUTH_TOKEN}=; path=/; max-age=0`;
+};
+
 // ============================================================
 // Auth Store — manages authentication state globally
 // ============================================================
@@ -35,20 +43,24 @@ export const useAuthStore = create<AuthState>()(
 
       setToken: (token) => set({ token }),
 
-      login: (user) =>
+      login: (user) => {
+        if (user.token) setAuthCookie(user.token);
         set({
           user,
           token: user.token ?? null,
           isAuthenticated: true,
           isLoading: false,
-        }),
+        });
+      },
 
-      logout: () =>
+      logout: () => {
+        clearAuthCookie();
         set({
           user: null,
           token: null,
           isAuthenticated: false,
-        }),
+        });
+      },
 
       setLoading: (isLoading) => set({ isLoading }),
     }),

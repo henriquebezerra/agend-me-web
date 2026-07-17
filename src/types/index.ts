@@ -3,17 +3,18 @@
 // ============================================================
 
 export interface User {
-  id: string;
-  name: string;
+  id: number;
+  nome: string;
   email: string;
   avatar?: string;
   role: UserRole;
   token?: string;
-  createdAt: Date;
-  updatedAt: Date;
+  senha?: string | null;
+  dataExpiracao?: string;
+  exp?: number;
 }
 
-export type UserRole = 'admin' | 'professional' | 'client';
+export type UserRole = 'PRESTADOR' | 'ADMIN' | 'CLIENTE';
 
 export interface PaginatedResponse<T> {
   data: T[];
