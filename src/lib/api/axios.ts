@@ -84,10 +84,11 @@ const getStoredToken = (): string | null => {
       return parsed.accessToken;
     }
   } catch {
+    // rawToken não é JSON — trata como token literal
     return rawToken;
   }
 
-  return rawToken;
+  return null;
 };
 
 // ============================================================

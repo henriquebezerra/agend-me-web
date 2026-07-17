@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { Menu, LogOut } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/auth.store';
+import authService from '@/services/auth.service';
+import { Dialog } from '@/components/ui';
 import { Drawer } from './Drawer';
 
 interface HeaderProps {
@@ -13,12 +15,19 @@ interface HeaderProps {
 
 export function Header({ className }: HeaderProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const router = useRouter();
   const logout = useAuthStore((s) => s.logout);
 
-  const handleLogout = () => {
-    logout();
-    router.push('/login');
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    try {
+      await authService.logout();
+    } finally {
+      logout();
+      router.push('/login');
+    }
   };
 
   return (
@@ -42,7 +51,7 @@ export function Header({ className }: HeaderProps) {
 
         {/* Logout */}
         <button
-          onClick={handleLogout}
+          onClick={() => setLogoutDialogOpen(true)}
           aria-label="Sair"
           className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white"
         >
@@ -52,6 +61,17 @@ export function Header({ className }: HeaderProps) {
       </header>
 
       <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
+
+      <Dialog
+        open={logoutDialogOpen}
+        onClose={() => setLogoutDialogOpen(false)}
+        title="Sair da conta"
+        description="Tem certeza que deseja sair? Você precisará fazer login novamente para acessar o sistema."
+        confirmLabel="Sair"
+        cancelLabel="Cancelar"
+        onConfirm={handleLogout}
+        isLoading={isLoggingOut}
+      />
     </>
   );
 }
