@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 import { Menu, LogOut } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/auth.store';
@@ -18,6 +19,7 @@ export function Header({ className }: HeaderProps) {
   const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const router = useRouter();
+  const { t } = useTranslation();
   const logout = useAuthStore((s) => s.logout);
 
   const handleLogout = async () => {
@@ -52,11 +54,11 @@ export function Header({ className }: HeaderProps) {
         {/* Logout */}
         <button
           onClick={() => setLogoutDialogOpen(true)}
-          aria-label="Sair"
+          aria-label={t('layout.logout')}
           className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white"
         >
           <LogOut className="h-5 w-5" />
-          <span className="hidden sm:inline">Sair</span>
+          <span className="hidden sm:inline">{t('layout.logout')}</span>
         </button>
       </header>
 
@@ -65,10 +67,10 @@ export function Header({ className }: HeaderProps) {
       <Dialog
         open={logoutDialogOpen}
         onClose={() => setLogoutDialogOpen(false)}
-        title="Sair da conta"
-        description="Tem certeza que deseja sair? Você precisará fazer login novamente para acessar o sistema."
-        confirmLabel="Sair"
-        cancelLabel="Cancelar"
+        title={t('layout.logoutDialogTitle')}
+        description={t('layout.logoutDialogDesc')}
+        confirmLabel={t('layout.logoutDialogConfirm')}
+        cancelLabel={t('layout.logoutDialogCancel')}
         onConfirm={handleLogout}
         isLoading={isLoggingOut}
       />

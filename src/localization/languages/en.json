@@ -12,5 +12,42 @@
     "noAccount": "Don't have an account yet?",
     "createAccount": "Create free account",
     "errorDefault": "Error signing in. Check your credentials and try again."
+  },
+  "register": {
+    "title": "Create account",
+    "subtitle": "Get started with",
+    "nameLabel": "Full name",
+    "namePlaceholder": "Enter your name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "your@email.com",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "••••••••",
+    "submitButton": "Create account",
+    "loading": "Creating account...",
+    "haveAccount": "Already have an account?",
+    "loginHere": "Log in here",
+    "successTitle": "Account created successfully!",
+    "successSubtitle": "Your {{APP_NAME}} account is ready. Log in to get started.",
+    "goToLogin": "Go to login",
+    "errorDefault": "Error creating account. Please try again.",
+    "errorHeader": "Could not create account"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Welcome to AgendMe. Your appointments will appear here.",
+    "emptyTitle": "No appointments yet",
+    "emptySubtitle": "You'll be able to manage your appointments here soon."
+  },
+  "layout": {
+    "navDashboard": "Dashboard",
+    "navAppointments": "Appointments",
+    "navClients": "Clients",
+    "navSettings": "Settings",
+    "logout": "Log out",
+    "logoutDialogTitle": "Log out of account",
+    "logoutDialogDesc": "Are you sure you want to log out? You will need to log in again to access the system.",
+    "logoutDialogConfirm": "Log out",
+    "logoutDialogCancel": "Cancel",
+    "closeMenu": "Close menu"
   }
 }

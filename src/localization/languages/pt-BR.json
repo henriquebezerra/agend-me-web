@@ -1,16 +1,53 @@
 {
-    "login": {
-        "title": "Bem-vindo!",
-        "subtitle": "Entre na sua conta",
-        "emailLabel": "E-mail",
-        "emailPlaceholder": "seu@email.com",
-        "passwordLabel": "Senha",
-        "passwordPlaceholder": "••••••••",
-        "forgotPassword": "Esqueci minha senha",
-        "submitButton": "Entrar",
-        "loading": "Entrando...",
-        "noAccount": "Ainda não tem conta?",
-        "createAccount": "Criar conta grátis",
-        "errorDefault": "Erro ao entrar. Verifique suas credenciais e tente novamente."
-    }
+  "login": {
+    "title": "Bem-vindo!",
+    "subtitle": "Entre na sua conta",
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "seu@email.com",
+    "passwordLabel": "Senha",
+    "passwordPlaceholder": "••••••••",
+    "forgotPassword": "Esqueci minha senha",
+    "submitButton": "Entrar",
+    "loading": "Entrando...",
+    "noAccount": "Ainda não tem conta?",
+    "createAccount": "Criar conta grátis",
+    "errorDefault": "Erro ao entrar. Verifique suas credenciais e tente novamente."
+  },
+  "register": {
+    "title": "Criar conta",
+    "subtitle": "Comece a usar o",
+    "nameLabel": "Nome completo",
+    "namePlaceholder": "Digite seu nome",
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "seu@email.com",
+    "passwordLabel": "Senha",
+    "passwordPlaceholder": "••••••••",
+    "submitButton": "Criar conta",
+    "loading": "Criando conta...",
+    "haveAccount": "Já tem conta?",
+    "loginHere": "Entrar aqui",
+    "successTitle": "Conta criada com sucesso!",
+    "successSubtitle": "Sua conta no {{APP_NAME}} está pronta. Faça login para começar.",
+    "goToLogin": "Ir para o login",
+    "errorDefault": "Erro ao criar conta. Tente novamente.",
+    "errorHeader": "Não foi possível criar a conta"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Bem-vindo ao AgendMe. Seus agendamentos aparecerão aqui.",
+    "emptyTitle": "Nenhum agendamento ainda",
+    "emptySubtitle": "Em breve você poderá gerenciar seus agendamentos por aqui."
+  },
+  "layout": {
+    "navDashboard": "Dashboard",
+    "navAppointments": "Agendamentos",
+    "navClients": "Clientes",
+    "navSettings": "Configurações",
+    "logout": "Sair",
+    "logoutDialogTitle": "Sair da conta",
+    "logoutDialogDesc": "Tem certeza que deseja sair? Você precisará fazer login novamente para acessar o sistema.",
+    "logoutDialogConfirm": "Sair",
+    "logoutDialogCancel": "Cancelar",
+    "closeMenu": "Fechar menu"
+  }
 }

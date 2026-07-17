@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Calendar, CheckCircle } from 'lucide-react';
@@ -15,6 +16,7 @@ import { registerSchema, type RegisterFormData } from '@/lib/validations';
 
 export default function RegisterPage() {
   const router = useRouter();
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -33,7 +35,7 @@ export default function RegisterPage() {
       setApiError(
         error instanceof Error
           ? error.message
-          : 'Erro ao criar conta. Tente novamente.',
+          : t('register.errorDefault'),
       );
     } finally {
       setIsLoading(false);
@@ -47,10 +49,10 @@ export default function RegisterPage() {
           <CheckCircle className="h-16 w-16 text-[#268596]" strokeWidth={1.5} />
           <div className="flex flex-col gap-2">
             <h1 className="text-xl sm:text-2xl font-bold text-white">
-              Conta criada com sucesso!
+              {t('register.successTitle')}
             </h1>
             <p className="text-sm sm:text-base text-blue-50">
-              Sua conta no {APP_NAME} está pronta. Faça login para começar.
+              {t('register.successSubtitle', { APP_NAME })}
             </p>
           </div>
           <Button
@@ -58,7 +60,7 @@ export default function RegisterPage() {
             className="w-full h-14 sm:h-16 rounded-2xl bg-[#268596] hover:bg-[#1f6377] text-white border-0"
             onClick={() => router.push('/login')}
           >
-            Ir para o login
+            {t('register.goToLogin')}
           </Button>
         </CardBody>
       </Card>
@@ -72,17 +74,17 @@ export default function RegisterPage() {
         <div className="flex flex-col items-center gap-2 text-center px-2 sm:px-0">
           <Calendar className="h-12 w-12 text-[#268596]" strokeWidth={1.5} />
           <h1 className="text-xl sm:text-2xl font-bold text-white">
-            Criar conta
+            {t('register.title')}
           </h1>
           <p className="text-sm sm:text-base text-blue-50">
-            Comece a usar o {APP_NAME}
+            {t('register.subtitle')} {APP_NAME}
           </p>
         </div>
 
         {/* Error */}
         {apiError && (
           <div className="rounded-xl border border-red-200 bg-red-50/90 p-3 text-sm text-red-700 shadow-sm dark:border-red-800/60 dark:bg-red-950/30 dark:text-red-300">
-            <div className="font-medium">Não foi possível criar a conta</div>
+            <div className="font-medium">{t('register.errorHeader')}</div>
             <div className="mt-1">{apiError}</div>
           </div>
         )}
@@ -91,9 +93,9 @@ export default function RegisterPage() {
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 px-4 sm:px-6">
           <div className="flex flex-col gap-4 px-2 sm:px-0">
             <Input
-              label="Nome completo"
+              label={t('register.nameLabel')}
               type="text"
-              placeholder="Digite seu nome"
+              placeholder={t('register.namePlaceholder')}
               id="register-name"
               autoComplete="name"
               {...register('nome')}
@@ -102,9 +104,9 @@ export default function RegisterPage() {
             />
 
             <Input
-              label="E-mail"
+              label={t('register.emailLabel')}
               type="email"
-              placeholder="seu@email.com"
+              placeholder={t('register.emailPlaceholder')}
               id="register-email"
               autoComplete="email"
               {...register('email')}
@@ -113,9 +115,9 @@ export default function RegisterPage() {
             />
 
             <Input
-              label="Senha"
+              label={t('register.passwordLabel')}
               type="password"
-              placeholder="••••••••"
+              placeholder={t('register.passwordPlaceholder')}
               id="register-password"
               autoComplete="new-password"
               {...register('password')}
@@ -131,19 +133,19 @@ export default function RegisterPage() {
               className="w-full h-14 sm:h-16 rounded-2xl bg-[#268596] hover:bg-[#1f6377] text-white border-0"
               disabled={isLoading}
             >
-              {isLoading ? 'Criando conta...' : 'Criar conta'}
+              {isLoading ? t('register.loading') : t('register.submitButton')}
             </Button>
           </div>
         </form>
 
         {/* Footer */}
         <p className="text-center text-sm text-blue-100 dark:text-blue-200">
-          Já tem conta?{' '}
+          {t('register.haveAccount')}{' '}
           <Link
             href="/login"
             className="font-medium text-white hover:text-blue-100 hover:underline dark:text-blue-100"
           >
-            Entrar aqui
+            {t('register.loginHere')}
           </Link>
         </p>
       </CardBody>

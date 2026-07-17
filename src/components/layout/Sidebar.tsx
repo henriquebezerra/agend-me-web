@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 import {
   LayoutDashboard,
   CalendarCheck2,
@@ -13,16 +16,16 @@ import { cn } from '@/lib/utils';
 // ============================================================
 
 interface NavItem {
-  label: string;
+  labelKey: string;
   href: string;
   icon: React.ComponentType<{ className?: string }>;
 }
 
 const navItems: NavItem[] = [
-  { label: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-  { label: 'Agendamentos', href: '/dashboard/appointments', icon: CalendarCheck2 },
-  { label: 'Clientes', href: '/dashboard/clients', icon: Users },
-  { label: 'Configurações', href: '/dashboard/settings', icon: Settings },
+  { labelKey: 'layout.navDashboard', href: '/dashboard', icon: LayoutDashboard },
+  { labelKey: 'layout.navAppointments', href: '/dashboard/appointments', icon: CalendarCheck2 },
+  { labelKey: 'layout.navClients', href: '/dashboard/clients', icon: Users },
+  { labelKey: 'layout.navSettings', href: '/dashboard/settings', icon: Settings },
 ];
 
 interface SidebarProps {
@@ -30,6 +33,7 @@ interface SidebarProps {
 }
 
 export function Sidebar({ className }: SidebarProps) {
+  const { t } = useTranslation();
   return (
     <aside
       className={cn(
@@ -56,7 +60,7 @@ export function Sidebar({ className }: SidebarProps) {
                   )}
                 >
                   <Icon className="h-5 w-5 flex-shrink-0" />
-                  <span className="flex-1">{item.label}</span>
+                  <span className="flex-1">{t(item.labelKey)}</span>
                   <ChevronRight className="h-4 w-4 opacity-0 transition-opacity group-hover:opacity-100" />
                 </Link>
               </li>

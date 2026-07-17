@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { X, Calendar } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
 import { APP_NAME } from '@/constants';
 
@@ -11,6 +12,8 @@ interface DrawerProps {
 }
 
 export function Drawer({ open, onClose }: DrawerProps) {
+  const { t } = useTranslation();
+
   useEffect(() => {
     if (!open) return;
 
@@ -61,7 +64,7 @@ export function Drawer({ open, onClose }: DrawerProps) {
           </div>
           <button
             onClick={onClose}
-            aria-label="Fechar menu"
+            aria-label={t('layout.closeMenu')}
             className="rounded-lg p-1.5 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
           >
             <X className="h-5 w-5" />
