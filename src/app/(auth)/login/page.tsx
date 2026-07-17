@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Calendar } from 'lucide-react';
@@ -18,6 +19,7 @@ type LoginFormValues = LoginFormData;
 
 export default function LoginPage() {
   const router = useRouter();
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormValues>({
@@ -36,7 +38,7 @@ export default function LoginPage() {
       const message =
         error instanceof Error && error.message
           ? error.message
-          : 'Erro ao entrar. Verifique suas credenciais e tente novamente.';
+          : t('login.errorDefault');
 
       setApiError(message);
     } finally {
@@ -51,10 +53,10 @@ export default function LoginPage() {
         <div className="flex flex-col items-center gap-2 text-center px-2 sm:px-0">
           <Calendar className="h-12 w-12 text-[#268596]" strokeWidth={1.5} />
           <h1 className="text-xl sm:text-2xl font-bold text-white">
-            Bem-vindo!
+            {t('login.title')}
           </h1>
           <p className="text-sm sm:text-base text-blue-50">
-            Entre na sua conta {APP_NAME}
+            {t('login.subtitle')} {APP_NAME}
           </p>
         </div>
 
@@ -67,9 +69,9 @@ export default function LoginPage() {
           )}
 
           <Input
-            label="E-mail"
+            label={t('login.emailLabel')}
             type="email"
-            placeholder="seu@email.com"
+            placeholder={t('login.emailPlaceholder')}
             id="login-email"
             autoComplete="email"
             {...register('email')}
@@ -77,9 +79,9 @@ export default function LoginPage() {
             disabled={isLoading}
           />
           <Input
-            label="Senha"
+            label={t('login.passwordLabel')}
             type="password"
-            placeholder="••••••••"
+            placeholder={t('login.passwordPlaceholder')}
             id="login-password"
             autoComplete="current-password"
             {...register('password')}
@@ -92,7 +94,7 @@ export default function LoginPage() {
               href="/forgot-password"
               className="text-xs text-blue-100 hover:text-white hover:underline dark:text-blue-200"
             >
-              Esqueci minha senha
+              {t('login.forgotPassword')}
             </Link>
           </div>
 
@@ -102,18 +104,18 @@ export default function LoginPage() {
             className="w-full mt-2 bg-[#268596] hover:bg-[#1f6377] text-white border-0"
             disabled={isLoading}
           >
-            {isLoading ? 'Entrando...' : 'Entrar'}
+            {isLoading ? t('login.loading') : t('login.submitButton')}
           </Button>
         </form>
 
         {/* Footer */}
         <p className="text-center text-sm text-blue-100 dark:text-blue-200">
-          Ainda não tem conta?{' '}
+          {t('login.noAccount')}{' '}
           <Link
             href="/register"
             className="font-medium text-white hover:text-blue-100 hover:underline dark:text-blue-100"
           >
-            Criar conta grátis
+            {t('login.createAccount')}
           </Link>
         </p>
       </CardBody>

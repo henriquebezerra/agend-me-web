@@ -63,6 +63,7 @@ src/
 │   └── scheduling/
 ├── hooks/                # Custom hooks globais
 ├── lib/                  # Axios, utils, validações Zod
+├── localization/         # Configuração de i18n e arquivos de tradução
 ├── services/             # Camada de serviços (chamadas de API)
 ├── store/                # Estado global com Zustand
 ├── types/                # Interfaces e types TypeScript
@@ -70,6 +71,34 @@ src/
 └── proxy.ts              # Proteção de rotas (Next.js 16)
 ```
 
+## Internacionalização (i18n)
+
+A aplicação possui suporte a múltiplos idiomas utilizando `i18next` em conjunto com `react-i18next`. A detecção do idioma do navegador é feita de forma automática.
+
+### Como adicionar novas traduções
+Os arquivos de tradução ficam no diretório `src/localization/languages/`.
+- Adicione/Edite as chaves no formato JSON (ex: `pt-BR.json` e `en.json`).
+- Nos componentes Client-side (`"use client"`), utilize o hook `useTranslation()`:
+
+```tsx
+import { useTranslation } from 'react-i18next';
+
+export default function MeuComponente() {
+  const { t } = useTranslation();
+  return <h1>{t('chaveDaTraducao')}</h1>;
+}
+```
+
+### Testando diferentes idiomas no desenvolvimento
+A instância do `i18next` foi injetada no escopo global para facilitar o teste em desenvolvimento.
+Você pode trocar o idioma da aplicação instantaneamente colando o seguinte comando no console do seu navegador (DevTools):
+
+```javascript
+i18next.changeLanguage('en') // Muda para inglês
+i18next.changeLanguage('pt-BR') // Retorna para português
+```
+
 ## Deploy
 
 O deploy recomendado é na [Vercel](https://vercel.com). Configure as variáveis de ambiente do `.env.example` no painel da Vercel antes de fazer o deploy.
+

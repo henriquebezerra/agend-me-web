@@ -1,0 +1,16 @@
+{
+    "login": {
+        "title": "Bem-vindo!",
+        "subtitle": "Entre na sua conta",
+        "emailLabel": "E-mail",
+        "emailPlaceholder": "seu@email.com",
+        "passwordLabel": "Senha",
+        "passwordPlaceholder": "••••••••",
+        "forgotPassword": "Esqueci minha senha",
+        "submitButton": "Entrar",
+        "loading": "Entrando...",
+        "noAccount": "Ainda não tem conta?",
+        "createAccount": "Criar conta grátis",
+        "errorDefault": "Erro ao entrar. Verifique suas credenciais e tente novamente."
+    }
+}
