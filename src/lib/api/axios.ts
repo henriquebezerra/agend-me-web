@@ -1,5 +1,6 @@
 import axios, { AxiosError, type AxiosInstance, type AxiosRequestConfig } from 'axios';
 import { API_BASE_URL, API_TIMEOUT, STORAGE_KEYS } from '@/constants';
+import { localization } from '@/localization/localization-manager';
 
 type ApiErrorPayload = {
   message?: string;
@@ -99,9 +100,12 @@ api.interceptors.request.use(
   (config) => {
     const token = getStoredToken();
 
-     if (token) {
-       config.headers.Authorization = `Bearer ${token}`;
-     }
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    config.headers['Accept-Language'] =
+      typeof window !== 'undefined' ? localization.languageTag : 'pt-BR';
 
     return config;
   },

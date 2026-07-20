@@ -8,10 +8,10 @@ import en from './languages/en.json';
 import ptBR from './languages/pt-BR.json';
 
 const resources = {
-  en: {
+  'en-US': {
     translation: en,
   },
-  pt: {
+  'pt-BR': {
     translation: ptBR,
   },
 };
@@ -21,7 +21,7 @@ i18next
   .use(initReactI18next)
   .init({
     resources,
-    fallbackLng: 'pt',
+    fallbackLng: 'pt-BR',
     interpolation: {
       escapeValue: false, // React já faz o escape
     },

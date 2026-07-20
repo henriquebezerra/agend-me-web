@@ -19,7 +19,7 @@ class LocalizationManager {
   }
 
   get languageTag(): string {
-    return i18next.language || 'pt';
+    return i18next.language || 'pt-BR';
   }
 }
 
