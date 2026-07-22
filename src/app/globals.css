@@ -52,7 +52,7 @@
   --background: hsl(222, 47%, 7%);
   --foreground: hsl(210, 40%, 98%);
   --surface: hsl(222, 47%, 11%);
-  --surface-raised: hsl(222, 47%, 15%);
+  --surface-raised: hsl(217, 19%, 27%);
   --border: hsl(217, 33%, 18%);
   --border-strong: hsl(217, 33%, 25%);
 
@@ -67,10 +67,11 @@
    ============================================================ */
 
 @layer utilities {
-  .text-token-primary   { color: var(--text-primary); }
-  .text-token-secondary { color: var(--text-secondary); }
-  .text-token-muted     { color: var(--text-muted); }
-  .text-token-subtle    { color: var(--text-subtle); }
+  .text-token-primary       { color: var(--text-primary); }
+  .text-token-secondary     { color: var(--text-secondary); }
+  .text-token-muted         { color: var(--text-muted); }
+  .text-token-subtle        { color: var(--text-subtle); }
+  .bg-token-surface-raised  { background-color: var(--surface-raised); }
 }
 
 /* ============================================================
