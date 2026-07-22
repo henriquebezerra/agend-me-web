@@ -49,5 +49,21 @@
     "logoutDialogConfirm": "Sair",
     "logoutDialogCancel": "Cancelar",
     "closeMenu": "Fechar menu"
+  },
+  "validation": {
+    "emailRequired": "E-mail é obrigatório",
+    "emailInvalid": "E-mail inválido",
+    "passwordRequired": "Senha é obrigatória",
+    "passwordMin": "Senha deve ter no mínimo {{count}} caracteres",
+    "passwordUppercase": "Senha deve conter ao menos uma letra maiúscula",
+    "passwordNumber": "Senha deve conter ao menos um número",
+    "nameMin": "Nome deve ter no mínimo {{count}} caracteres",
+    "nameMax": "Nome muito longo",
+    "clientRequired": "Cliente é obrigatório",
+    "serviceRequired": "Serviço é obrigatório",
+    "professionalRequired": "Profissional é obrigatório",
+    "dateRequired": "Data é obrigatória",
+    "timeRequired": "Horário é obrigatório",
+    "phoneInvalid": "Telefone inválido"
   }
 }

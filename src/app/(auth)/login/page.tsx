@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
@@ -13,20 +13,19 @@ import { Input } from '@/components/ui/Input';
 import authService from '@/services/auth.service';
 import { useAuthStore } from '@/store/auth.store';
 import { APP_NAME } from '@/constants';
-import { loginSchema, type LoginFormData } from '@/lib/validations';
-
-type LoginFormValues = LoginFormData;
+import { createLoginSchema, type LoginFormData } from '@/lib/validations';
 
 export default function LoginPage() {
   const router = useRouter();
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
-  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormValues>({
+  const loginSchema = useMemo(() => createLoginSchema(t), [t]);
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = async (data: LoginFormValues) => {
+  const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);
     setApiError(null);
 

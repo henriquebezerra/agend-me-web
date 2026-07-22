@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import usuarioService from '@/services/usuario.service';
 import { APP_NAME } from '@/constants';
-import { registerSchema, type RegisterFormData } from '@/lib/validations';
+import { createRegisterSchema, type RegisterFormData } from '@/lib/validations';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -20,6 +20,7 @@ export default function RegisterPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
+  const registerSchema = useMemo(() => createRegisterSchema(t), [t]);
   const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
   });

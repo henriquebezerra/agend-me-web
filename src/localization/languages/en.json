@@ -49,5 +49,21 @@
     "logoutDialogConfirm": "Log out",
     "logoutDialogCancel": "Cancel",
     "closeMenu": "Close menu"
+  },
+  "validation": {
+    "emailRequired": "Email is required",
+    "emailInvalid": "Invalid email",
+    "passwordRequired": "Password is required",
+    "passwordMin": "Password must be at least {{count}} characters",
+    "passwordUppercase": "Password must contain at least one uppercase letter",
+    "passwordNumber": "Password must contain at least one number",
+    "nameMin": "Name must be at least {{count}} characters",
+    "nameMax": "Name is too long",
+    "clientRequired": "Client is required",
+    "serviceRequired": "Service is required",
+    "professionalRequired": "Professional is required",
+    "dateRequired": "Date is required",
+    "timeRequired": "Time is required",
+    "phoneInvalid": "Invalid phone number"
   }
 }
