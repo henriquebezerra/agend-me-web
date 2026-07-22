@@ -49,7 +49,8 @@
     "logoutDialogConfirm": "Sair",
     "logoutDialogCancel": "Cancelar",
     "closeMenu": "Fechar menu",
-    "back": "Voltar"
+    "back": "Voltar",
+    "toggleTheme": "Alternar tema"
   },
   "profile": {
     "myEstablishments": "Meus Estabelecimentos",

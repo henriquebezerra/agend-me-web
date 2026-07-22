@@ -5,6 +5,7 @@ import { X, Calendar, UserCircle2 } from 'lucide-react';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
+import { FooterDrawer } from '@/components/layout/FooterDrawer';
 import { APP_NAME, ROUTES } from '@/constants';
 
 interface DrawerProps {
@@ -90,6 +91,9 @@ export function Drawer({ open, onClose }: DrawerProps) {
             </li>
           </ul>
         </nav>
+
+        {/* Footer */}
+        <FooterDrawer />
       </aside>
     </>
   );
