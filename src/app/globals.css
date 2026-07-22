@@ -26,6 +26,12 @@
   --surface: hsl(0, 0%, 100%);
   --surface-raised: hsl(210, 40%, 96%);
 
+  /* Typography */
+  --text-primary: hsl(222, 47%, 11%);
+  --text-secondary: hsl(215, 25%, 27%);
+  --text-muted: hsl(215, 16%, 47%);
+  --text-subtle: hsl(215, 20%, 65%);
+
   /* Border */
   --border: hsl(214, 32%, 91%);
   --border-strong: hsl(214, 32%, 80%);
@@ -49,6 +55,11 @@
   --surface-raised: hsl(222, 47%, 15%);
   --border: hsl(217, 33%, 18%);
   --border-strong: hsl(217, 33%, 25%);
+
+  --text-primary: hsl(210, 40%, 96%);
+  --text-secondary: hsl(213, 31%, 91%);
+  --text-muted: hsl(215, 20%, 65%);
+  --text-subtle: hsl(215, 16%, 47%);
 }
 
 /* ============================================================
