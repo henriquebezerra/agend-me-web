@@ -51,10 +51,10 @@ export default function LoginPage() {
         {/* Brand */}
         <div className="flex flex-col items-center gap-2 text-center px-2 sm:px-0">
           <Calendar className="h-12 w-12 text-[#268596]" strokeWidth={1.5} />
-          <h1 className="text-xl sm:text-2xl font-bold text-white">
+          <h1 className="text-xl sm:text-2xl font-bold color-primary-login">
             {t('login.title')}
           </h1>
-          <p className="text-sm sm:text-base text-blue-50">
+          <p className="text-sm sm:text-base color-primary-login">
             {t('login.subtitle')} {APP_NAME}
           </p>
         </div>
@@ -91,7 +91,7 @@ export default function LoginPage() {
           <div className="flex items-center justify-end">
             <Link
               href="/forgot-password"
-              className="text-xs text-blue-100 hover:text-white hover:underline dark:text-blue-200"
+              className="text-xs text-blue-100 color-primary-login hover:underline dark:text-blue-200"
             >
               {t('login.forgotPassword')}
             </Link>
@@ -108,11 +108,11 @@ export default function LoginPage() {
         </form>
 
         {/* Footer */}
-        <p className="text-center text-sm text-blue-100 dark:text-blue-200">
+        <p className="text-center text-sm color-primary-login dark:text-blue-200">
           {t('login.noAccount')}{' '}
           <Link
             href="/register"
-            className="font-medium text-white hover:text-blue-100 hover:underline dark:text-blue-100"
+            className="font-medium color-primary-login hover:text-blue-100 hover:underline dark:text-blue-100"
           >
             {t('login.createAccount')}
           </Link>
