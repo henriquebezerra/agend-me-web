@@ -93,7 +93,7 @@ export function Drawer({ open, onClose }: DrawerProps) {
         </nav>
 
         {/* Footer */}
-        <FooterDrawer />
+        <FooterDrawer onClose={onClose} />
       </aside>
     </>
   );

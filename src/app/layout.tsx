@@ -4,6 +4,7 @@ import { cookies } from 'next/headers';
 import './globals.css';
 import { APP_NAME, APP_DESCRIPTION, STORAGE_KEYS } from '@/constants';
 import I18nProvider from '@/components/providers/I18nProvider';
+import { ThemeProvider } from '@/components/providers/ThemeProvider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -45,7 +46,9 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-50 dark:bg-slate-950`}
       >
-        <I18nProvider language={language}>{children}</I18nProvider>
+        <ThemeProvider>
+          <I18nProvider language={language}>{children}</I18nProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

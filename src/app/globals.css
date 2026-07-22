@@ -40,15 +40,15 @@
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: hsl(222, 47%, 7%);
-    --foreground: hsl(210, 40%, 98%);
-    --surface: hsl(222, 47%, 11%);
-    --surface-raised: hsl(222, 47%, 15%);
-    --border: hsl(217, 33%, 18%);
-    --border-strong: hsl(217, 33%, 25%);
-  }
+@variant dark (&:where(.dark, .dark *));
+
+.dark {
+  --background: hsl(222, 47%, 7%);
+  --foreground: hsl(210, 40%, 98%);
+  --surface: hsl(222, 47%, 11%);
+  --surface-raised: hsl(222, 47%, 15%);
+  --border: hsl(217, 33%, 18%);
+  --border-strong: hsl(217, 33%, 25%);
 }
 
 /* ============================================================
