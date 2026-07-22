@@ -1,10 +1,11 @@
 'use client';
 
 import { useEffect } from 'react';
-import { X, Calendar } from 'lucide-react';
+import { X, Calendar, UserCircle2 } from 'lucide-react';
+import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
-import { APP_NAME } from '@/constants';
+import { APP_NAME, ROUTES } from '@/constants';
 
 interface DrawerProps {
   open: boolean;
@@ -74,8 +75,21 @@ export function Drawer({ open, onClose }: DrawerProps) {
         {/* Divider */}
         <div className="mx-5 border-t border-white/20" />
 
-        {/* Nav items — a serem adicionados */}
-        <nav className="flex-1 overflow-y-auto px-3 py-4" />
+        {/* Nav */}
+        <nav className="flex-1 overflow-y-auto px-3 py-4">
+          <ul className="flex flex-col gap-1">
+            <li>
+              <Link
+                href={ROUTES.PROFILE}
+                onClick={onClose}
+                className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+              >
+                <UserCircle2 className="h-5 w-5 flex-shrink-0" />
+                Perfil
+              </Link>
+            </li>
+          </ul>
+        </nav>
       </aside>
     </>
   );

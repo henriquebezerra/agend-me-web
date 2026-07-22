@@ -38,7 +38,7 @@ export const ROUTES = {
   APPOINTMENTS: '/dashboard/appointments',
   CLIENTS: '/dashboard/clients',
   SETTINGS: '/dashboard/settings',
-  PROFILE: '/dashboard/profile',
+  PROFILE: '/profile',
 } as const;
 
 // Status Labels

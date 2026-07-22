@@ -3,7 +3,9 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
-import { Menu, LogOut } from 'lucide-react';
+import { Home, Menu, LogOut } from 'lucide-react';
+import { ROUTES } from '@/constants';
+import { IconButton } from '@/components/ui/IconButton';
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/auth.store';
 import authService from '@/services/auth.service';
@@ -42,14 +44,25 @@ export function Header({ className }: HeaderProps) {
           className,
         )}
       >
-        {/* Hamburger */}
-        <button
-          onClick={() => setDrawerOpen(true)}
-          aria-label="Abrir menu"
-          className="rounded-lg p-2 text-white/80 transition-colors hover:bg-white/10 hover:text-white"
-        >
-          <Menu className="h-6 w-6" />
-        </button>
+        <div className="flex items-center gap-1">
+          {/* Hamburger */}
+          <IconButton
+            icon={<Menu className="h-5 w-5" />}
+            className="rounded-lg bg-transparent hover:bg-white/10 text-white/80 hover:text-white"
+            onClick={() => setDrawerOpen(true)}
+          />
+
+          <div className="h-5 w-px bg-white/20" />
+
+          {/* Home */}
+          <IconButton
+            icon={<Home className="h-5 w-5" />}
+            tooltip={t('layout.navDashboard')}
+            tooltipSide="right"
+            className="rounded-lg bg-transparent hover:bg-white/10 text-white/80 hover:text-white"
+            onClick={() => router.push(ROUTES.DASHBOARD)}
+          />
+        </div>
 
         {/* Logout */}
         <button

@@ -48,7 +48,20 @@
     "logoutDialogDesc": "Tem certeza que deseja sair? Você precisará fazer login novamente para acessar o sistema.",
     "logoutDialogConfirm": "Sair",
     "logoutDialogCancel": "Cancelar",
-    "closeMenu": "Fechar menu"
+    "closeMenu": "Fechar menu",
+    "back": "Voltar"
+  },
+  "profile": {
+    "myEstablishments": "Meus Estabelecimentos",
+    "addEstablishment": "Adicionar",
+    "addEstablishmentTooltip": "Adicionar novo estabelecimento",
+    "deleteEstablishment": "Excluir estabelecimento",
+    "editEstablishment": "Editar estabelecimento",
+    "editProfile": "Editar perfil",
+    "deleteDialogTitle": "Excluir estabelecimento",
+    "deleteDialogDesc": "Tem certeza que deseja excluir \"{{nome}}\"? Essa ação não pode ser desfeita.",
+    "deleteDialogConfirm": "Excluir",
+    "deleteDialogCancel": "Cancelar"
   },
   "validation": {
     "emailRequired": "E-mail é obrigatório",

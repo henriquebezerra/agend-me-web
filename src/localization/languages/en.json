@@ -48,7 +48,20 @@
     "logoutDialogDesc": "Are you sure you want to log out? You will need to log in again to access the system.",
     "logoutDialogConfirm": "Log out",
     "logoutDialogCancel": "Cancel",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "back": "Back"
+  },
+  "profile": {
+    "myEstablishments": "My Establishments",
+    "addEstablishment": "Add",
+    "addEstablishmentTooltip": "Add new establishment",
+    "deleteEstablishment": "Delete establishment",
+    "editEstablishment": "Edit establishment",
+    "editProfile": "Edit profile",
+    "deleteDialogTitle": "Delete establishment",
+    "deleteDialogDesc": "Are you sure you want to delete \"{{nome}}\"? This action cannot be undone.",
+    "deleteDialogConfirm": "Delete",
+    "deleteDialogCancel": "Cancel"
   },
   "validation": {
     "emailRequired": "Email is required",
