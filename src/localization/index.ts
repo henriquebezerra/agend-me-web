@@ -26,8 +26,9 @@ i18next
       escapeValue: false, // React já faz o escape
     },
     detection: {
-      order: ['localStorage', 'navigator'],
-      caches: ['localStorage'],
+      order: ['cookie', 'navigator'],
+      caches: ['cookie'],
+      lookupCookie: '@agend-me-web:language',
     }
   });
 

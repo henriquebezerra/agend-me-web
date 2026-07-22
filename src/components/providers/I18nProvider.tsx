@@ -1,8 +1,18 @@
 'use client';
 
 import { ReactNode } from 'react';
-import '@/localization'; // Inicializa o i18next no cliente
+import '@/localization';
+import i18next from '@/localization';
 
-export default function I18nProvider({ children }: { children: ReactNode }) {
+interface I18nProviderProps {
+  children: ReactNode;
+  language: string;
+}
+
+export default function I18nProvider({ children, language }: I18nProviderProps) {
+  if (i18next.language !== language) {
+    i18next.changeLanguage(language);
+  }
+
   return <>{children}</>;
 }

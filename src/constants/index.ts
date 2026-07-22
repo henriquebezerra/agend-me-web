@@ -25,6 +25,7 @@ export const STORAGE_KEYS = {
   REFRESH_TOKEN: '@agend-me-web:refresh_token',
   USER: '@agend-me-web:user',
   THEME: '@agend-me-web:theme',
+  LANGUAGE: '@agend-me-web:language',
 } as const;
 
 // Routes
