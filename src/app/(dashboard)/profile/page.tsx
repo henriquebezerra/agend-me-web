@@ -66,10 +66,10 @@ export default function ProfilePage() {
           )}
 
           <div className="flex flex-col gap-1">
-            <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            <h1 className="text-2xl font-bold text-token-primary">
               {user?.nome ?? '—'}
             </h1>
-            <p className="text-sm text-slate-500 dark:text-slate-400">
+            <p className="text-sm text-token-muted">
               {user?.email ?? '—'}
             </p>
           </div>
@@ -78,7 +78,7 @@ export default function ProfilePage() {
 
       <div className="flex flex-col gap-3">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
+          <h2 className="text-lg font-semibold text-token-primary">
             {t('profile.myEstablishments')}
           </h2>
           <div className="group/add relative">

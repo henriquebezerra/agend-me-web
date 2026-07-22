@@ -63,6 +63,17 @@
 }
 
 /* ============================================================
+   Typography Utilities
+   ============================================================ */
+
+@layer utilities {
+  .text-token-primary   { color: var(--text-primary); }
+  .text-token-secondary { color: var(--text-secondary); }
+  .text-token-muted     { color: var(--text-muted); }
+  .text-token-subtle    { color: var(--text-subtle); }
+}
+
+/* ============================================================
    Base Styles
    ============================================================ */
 
