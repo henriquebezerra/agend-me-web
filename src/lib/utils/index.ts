@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { API_BASE_URL } from '@/constants';
 
 /**
  * Merges Tailwind CSS classes safely, resolving conflicts.
@@ -69,3 +70,11 @@ export function sleep(ms: number): Promise<void> {
  * Returns true if the code is running on the server side.
  */
 export const isServer = typeof window === 'undefined';
+
+export function getEstablishmentAvatarUrl(uuidStorage: string, avatar: string): string {
+  return `${API_BASE_URL}/storage-s3/download/${uuidStorage}/avatar/${avatar}`;
+}
+
+export function getUserAvatarUrl(avatar: string): string {
+  return `${API_BASE_URL}/storage-s3/download/${avatar}`;
+}

@@ -6,6 +6,7 @@ import { Building2, Pencil, Star, Trash2 } from 'lucide-react';
 import { Card, CardBody } from '@/components/ui/Card';
 import { Dialog } from '@/components/ui/Dialog';
 import { IconButton } from '@/components/ui/IconButton';
+import { getEstablishmentAvatarUrl } from '@/lib/utils';
 import type { Establishment } from '@/types/establishment';
 
 interface EstablishmentCardProps {
@@ -14,7 +15,7 @@ interface EstablishmentCardProps {
 
 export function EstablishmentCard({ establishment }: EstablishmentCardProps) {
   const { t } = useTranslation();
-  const { nome, star, avatar, endereco } = establishment;
+  const { nome, star, avatar, uuidStorage, endereco } = establishment;
   const [deleteOpen, setDeleteOpen] = useState(false);
 
   const address = [
@@ -29,9 +30,9 @@ export function EstablishmentCard({ establishment }: EstablishmentCardProps) {
     <>
       <Card className="relative cursor-pointer">
         <CardBody className="flex items-center gap-4 pr-10">
-          {avatar ? (
+          {avatar && uuidStorage ? (
             <img
-              src={avatar}
+              src={getEstablishmentAvatarUrl(uuidStorage, avatar)}
               alt={nome}
               className="h-14 w-14 flex-shrink-0 rounded-full object-cover"
             />

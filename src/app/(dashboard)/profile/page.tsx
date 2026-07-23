@@ -9,6 +9,7 @@ import { Card, CardBody } from '@/components/ui/Card';
 import { IconButton } from '@/components/ui/IconButton';
 import { EstablishmentCard } from '@/components/ui/EstablishmentCard';
 import establishmentService from '@/services/establishment.service';
+import { getUserAvatarUrl } from '@/lib/utils';
 import type { Establishment } from '@/types/establishment';
 
 export default function ProfilePage() {
@@ -39,7 +40,7 @@ export default function ProfilePage() {
         <CardBody className="flex flex-col items-center gap-4 py-8 text-center">
           {user?.avatar ? (
             <img
-              src={user.avatar}
+              src={getUserAvatarUrl(user.avatar)}
               alt={user.nome}
               className="h-24 w-24 rounded-full object-cover ring-4 ring-[#268596]/20"
             />
