@@ -24,11 +24,12 @@ export function Header({ className }: HeaderProps) {
   const router = useRouter();
   const { t } = useTranslation();
   const logout = useAuthStore((s) => s.logout);
+  const user = useAuthStore((s) => s.user);
 
   const handleLogout = async () => {
     setIsLoggingOut(true);
     try {
-      await authService.logout();
+      await authService.logout(user?.token ?? '', user?.refreshToken ?? '');
     } finally {
       logout();
       router.push('/login');

@@ -53,6 +53,12 @@ const api: AxiosInstance = axios.create({
   },
 });
 
+const AUTH_URLS = {
+  login: '/auth/login',
+  refresh: '/auth/refresh',
+  logout: '/auth/logout',
+} as const;
+
 // ============================================================
 // LocalStorage helpers
 // ============================================================
@@ -98,8 +104,9 @@ const forceLogout = (): void => {
 
 api.interceptors.request.use(
   (config) => {
+    const isLogout = config.url?.includes(AUTH_URLS.logout);
     const token = getStoredToken();
-    if (token) {
+    if (token && !isLogout) {
       config.headers.Authorization = `Bearer ${token}`;
     }
     config.headers['Accept-Language'] =
@@ -133,9 +140,9 @@ api.interceptors.response.use(
   async (error: AxiosError) => {
     const originalRequest = error.config as AxiosRequestConfig & { _retry?: boolean };
     const requestUrl = originalRequest?.url ?? '';
-    const isAuthRequest = requestUrl.includes('/auth/login') || requestUrl.includes('/auth/refresh');
+    const isAuthRequest = requestUrl.includes(AUTH_URLS.login) || requestUrl.includes(AUTH_URLS.refresh);
 
-    if (error.response?.status !== 401 || isAuthRequest) {
+     if (error.response?.status !== 401 || isAuthRequest) {
       return Promise.reject(new Error(getErrorMessage(error)));
     }
 
@@ -162,7 +169,7 @@ api.interceptors.response.use(
 
     try {
       const { data: updatedUser } = await axios.post<User>(
-        `${API_BASE_URL}/auth/refresh`,
+        `${API_BASE_URL}${AUTH_URLS.refresh}`,
         storedRefreshToken,
         { headers: { 'Content-Type': 'text/plain', Accept: 'application/json' } },
       );
