@@ -9,6 +9,7 @@ export interface User {
   avatar?: string;
   role: UserRole;
   token?: string;
+  refreshToken?: string;
   senha?: string | null;
   dataExpiracao?: string;
   exp?: number;

@@ -65,31 +65,12 @@ const getStoredToken = (): string | null => {
 
   try {
     const parsed = JSON.parse(rawToken);
-    const persistedState = parsed?.state ?? parsed;
-
-    if (persistedState && typeof persistedState === 'object') {
-      if (typeof persistedState.token === 'string' && persistedState.token) {
-        return persistedState.token;
-      }
-
-      if (typeof persistedState.accessToken === 'string' && persistedState.accessToken) {
-        return persistedState.accessToken;
-      }
-    }
-
-    if (typeof parsed?.token === 'string' && parsed.token) {
-      return parsed.token;
-    }
-
-    if (typeof parsed?.accessToken === 'string' && parsed.accessToken) {
-      return parsed.accessToken;
-    }
+    const state = parsed?.state ?? parsed;
+    const token = state?.user?.token;
+    return typeof token === 'string' && token ? token : null;
   } catch {
-    // rawToken não é JSON — trata como token literal
     return rawToken;
   }
-
-  return null;
 };
 
 // ============================================================
