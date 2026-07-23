@@ -1,45 +1,29 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pencil, Plus, UserCircle2 } from 'lucide-react';
+import { Calendar, Pencil, Plus, UserCircle2 } from 'lucide-react';
 import { useAuthStore } from '@/store/auth.store';
 import { Button } from '@/components/ui/Button';
 import { Card, CardBody } from '@/components/ui/Card';
 import { IconButton } from '@/components/ui/IconButton';
 import { EstablishmentCard } from '@/components/ui/EstablishmentCard';
+import establishmentService from '@/services/establishment.service';
 import type { Establishment } from '@/types/establishment';
-
-const mockEstablishments: Establishment[] = [
-  {
-    id: 1,
-    nome: 'Barbearia Estilo',
-    star: 4.5,
-    endereco: {
-      rua: 'Rua das Flores',
-      numero: 142,
-      bairro: 'Centro',
-      cidade: 'Fortaleza',
-      estado: 'CE',
-      complemento: 'Sala 2',
-    },
-  },
-  {
-    id: 2,
-    nome: 'Studio Beleza & Arte',
-    star: 4.8,
-    endereco: {
-      rua: 'Av. Beira Mar',
-      numero: 800,
-      bairro: 'Meireles',
-      cidade: 'Fortaleza',
-      estado: 'CE',
-    },
-  },
-];
 
 export default function ProfilePage() {
   const { t } = useTranslation();
   const user = useAuthStore((s) => s.user);
+  const [establishments, setEstablishments] = useState<Establishment[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    establishmentService.getMyEstablishments()
+      .then(setEstablishments)
+      .catch((err: Error) => setError(err.message ?? t('profile.errorLoading')))
+      .finally(() => setIsLoading(false));
+  }, [t]);
 
   return (
     <div className="flex flex-col gap-6 max-w-2xl mx-auto">
@@ -95,7 +79,35 @@ export default function ProfilePage() {
             </span>
           </div>
         </div>
-        {mockEstablishments.map((establishment) => (
+        {isLoading && (
+          <div className="flex justify-center py-16">
+            <Calendar className="h-8 w-8 text-token-brand animate-spin" strokeWidth={1.5} />
+          </div>
+        )}
+
+        {!isLoading && error && (
+          <div className="rounded-xl border border-red-200 bg-red-50/90 p-3 text-sm text-red-700 dark:border-red-800/60 dark:bg-red-950/30 dark:text-red-300">
+            {error}
+          </div>
+        )}
+
+        {!isLoading && !error && establishments.length === 0 && (
+          <Card>
+            <CardBody className="flex flex-col items-center gap-4 py-16 text-center">
+              <Calendar className="h-12 w-12 text-token-brand" strokeWidth={1.5} />
+              <div className="flex flex-col gap-1">
+                <p className="font-medium text-token-secondary">
+                  {t('profile.emptyEstablishmentsTitle')}
+                </p>
+                <p className="text-sm text-token-subtle">
+                  {t('profile.emptyEstablishmentsSubtitle')}
+                </p>
+              </div>
+            </CardBody>
+          </Card>
+        )}
+
+        {!isLoading && !error && establishments.map((establishment) => (
           <EstablishmentCard key={establishment.id} establishment={establishment} />
         ))}
       </div>

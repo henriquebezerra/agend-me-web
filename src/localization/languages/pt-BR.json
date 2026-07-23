@@ -62,7 +62,10 @@
     "deleteDialogTitle": "Excluir estabelecimento",
     "deleteDialogDesc": "Tem certeza que deseja excluir \"{{nome}}\"? Essa ação não pode ser desfeita.",
     "deleteDialogConfirm": "Excluir",
-    "deleteDialogCancel": "Cancelar"
+    "deleteDialogCancel": "Cancelar",
+    "emptyEstablishmentsTitle": "Nenhum estabelecimento cadastrado",
+    "emptyEstablishmentsSubtitle": "Adicione seu primeiro estabelecimento para começar a gerenciá-lo aqui.",
+    "errorLoading": "Erro ao carregar estabelecimentos. Tente novamente."
   },
   "validation": {
     "emailRequired": "E-mail é obrigatório",

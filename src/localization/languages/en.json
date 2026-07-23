@@ -62,7 +62,10 @@
     "deleteDialogTitle": "Delete establishment",
     "deleteDialogDesc": "Are you sure you want to delete \"{{nome}}\"? This action cannot be undone.",
     "deleteDialogConfirm": "Delete",
-    "deleteDialogCancel": "Cancel"
+    "deleteDialogCancel": "Cancel",
+    "emptyEstablishmentsTitle": "No establishments registered",
+    "emptyEstablishmentsSubtitle": "Add your first establishment to start managing it here.",
+    "errorLoading": "Error loading establishments. Please try again."
   },
   "validation": {
     "emailRequired": "Email is required",
