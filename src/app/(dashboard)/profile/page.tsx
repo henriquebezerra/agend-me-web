@@ -95,7 +95,7 @@ export default function ProfilePage() {
         {!isLoading && !error && establishments.length === 0 && (
           <Card>
             <CardBody className="flex flex-col items-center gap-4 py-16 text-center">
-              <Calendar className="h-12 w-12 text-token-brand" strokeWidth={1.5} />
+              <Calendar className="h-12 w-12 text-token-brand color-primary-details" strokeWidth={1.5} />
               <div className="flex flex-col gap-1">
                 <p className="font-medium text-token-secondary">
                   {t('profile.emptyEstablishmentsTitle')}

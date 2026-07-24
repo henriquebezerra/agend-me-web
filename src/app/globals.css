@@ -60,8 +60,7 @@
   --text-secondary: hsl(213, 31%, 91%);
   --text-muted: hsl(215, 20%, 65%);
   --text-subtle: hsl(215, 16%, 47%);
-  /*For Login */
-  --color-primary: hsl(210, 40%, 96%);
+  --color-primary: var(--text-primary);
 }
 
 /* ============================================================
@@ -74,8 +73,7 @@
   .text-token-muted         { color: var(--text-muted); }
   .text-token-subtle        { color: var(--text-subtle); }
   .bg-token-surface-raised  { background-color: var(--surface-raised); }
-  /*For Login */
-  .color-primary-login      {color: var(--color-primary);} 
+  .color-primary-details    {color: var(--color-primary);} 
 }
 
 /* ============================================================

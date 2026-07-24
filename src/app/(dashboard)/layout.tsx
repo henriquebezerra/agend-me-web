@@ -1,9 +1,4 @@
-import type { Metadata } from 'next';
 import { Header } from '@/components/layout';
-
-export const metadata: Metadata = {
-  title: 'Dashboard',
-};
 
 export default function DashboardLayout({
   children,
